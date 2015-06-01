@@ -5,4 +5,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="music_search_hint">Enter a band, singer, or song here!</string>
+
+    <string name="band_name">Coldplay</string>
+    <string name="album_name">Mylo Xyloto</string>
 </resources>

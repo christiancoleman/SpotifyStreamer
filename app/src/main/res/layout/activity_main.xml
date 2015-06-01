@@ -10,16 +10,17 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/music_search_hint"
         android:id="@+id/searchTextView"
         android:layout_margin="@dimen/default_item_margin"/>
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchListView"
         android:layout_margin="@dimen/default_item_margin"/>
+
 </LinearLayout>

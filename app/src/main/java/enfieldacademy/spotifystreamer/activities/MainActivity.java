@@ -1,10 +1,13 @@
-package enfieldacademy.spotifystreamer;
+package enfieldacademy.spotifystreamer.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
+import enfieldacademy.spotifystreamer.R;
+import enfieldacademy.spotifystreamer.adapters.SearchResultAdapter;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -14,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         ListView lv = (ListView) findViewById(R.id.searchListView);
-        SearchResultAdapter searchResultAdapter = new SearchResultAdapter();
+        SearchResultAdapter searchResultAdapter = new SearchResultAdapter(this);
         lv.setAdapter(searchResultAdapter);
     }
 
