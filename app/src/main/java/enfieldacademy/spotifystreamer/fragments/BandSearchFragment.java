@@ -15,8 +15,6 @@ import enfieldacademy.spotifystreamer.R;
 import enfieldacademy.spotifystreamer.activities.MainActivity;
 import enfieldacademy.spotifystreamer.adapters.ArtistsSearchResultAdapter;
 
-import kaaes.spotify.webapi.android.SpotifyApi;
-import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.ArtistsPager;
 import kaaes.spotify.webapi.android.models.Pager;
@@ -28,16 +26,12 @@ public class BandSearchFragment extends Fragment {
     // to satisfy looking for bands with very short names like U2, but also trying to respect API limits
     private final int NUM_OF_CHARS_BEFORE_SEARCH = 1;
 
-    private SpotifyService spotify;
     private ArtistsSearchResultAdapter artistsSearchResultAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_band_search, container, false);
-        SpotifyApi api = new SpotifyApi();
-        spotify = api.getService();
-
         EditText musicSearchBox = (EditText) rootView.findViewById(R.id.music_search_box);
         musicSearchBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,7 +75,7 @@ public class BandSearchFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             // added the asterisk so that partial names still find bands/singers
             // for ex: 'Subli' will find Sublime whereas without an asterisk it would not
-            ArtistsPager artistsPager = spotify.searchArtists(searchStr + "*");
+            ArtistsPager artistsPager = MainActivity.spotify.searchArtists(searchStr + "*");
             Pager<Artist> pagerOfArtists = artistsPager.artists;
             MainActivity.artistList = pagerOfArtists.items;
             return null;

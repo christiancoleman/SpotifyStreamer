@@ -2,7 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/spotify_font_color</item>
+        <item name="android:textColorHint">@color/spotify_font_color</item>
+        <item name="android:editTextColor">@color/spotify_font_color</item>
+        <item name="android:background">@color/spotify_background</item>
     </style>
 
 </resources>

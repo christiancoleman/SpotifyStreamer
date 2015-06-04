@@ -1,7 +1,6 @@
 package enfieldacademy.spotifystreamer.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,26 +16,28 @@ import java.util.List;
 
 import enfieldacademy.spotifystreamer.R;
 import enfieldacademy.spotifystreamer.activities.MainActivity;
-import enfieldacademy.spotifystreamer.activities.TopTenActivity;
+import kaaes.spotify.webapi.android.models.AlbumSimple;
 import kaaes.spotify.webapi.android.models.Artist;
+import kaaes.spotify.webapi.android.models.ArtistSimple;
 import kaaes.spotify.webapi.android.models.Image;
+import kaaes.spotify.webapi.android.models.Track;
 
-public class ArtistsSearchResultAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
+public class SongsSearchResultAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
 
-    private final String TAG = "ArtistSearchResultAdptr";
+    private final String TAG = "SongsSearchResultAdptr";
 
     private LayoutInflater mInflater;
     private Context context;
 
-    public ArtistsSearchResultAdapter(Context context){
+    public SongsSearchResultAdapter(Context context){
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        if(MainActivity.artistList != null) {
-            return MainActivity.artistList.size();
+        if(MainActivity.topTenList != null) {
+            return MainActivity.topTenList.size();
         } else {
             return 0;
         }
@@ -55,35 +56,39 @@ public class ArtistsSearchResultAdapter extends BaseAdapter implements AdapterVi
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
-            convertView = mInflater.inflate(R.layout.item_search_music, parent, false);
+            convertView = mInflater.inflate(R.layout.item_bands_top_ten, parent, false);
         }
 
-        Artist artist = MainActivity.artistList.get(position);
-        String bandName = artist.name;
-        List<Image> bandImageList = artist.images;
+        Track track = MainActivity.topTenList.get(position);
 
-        TextView bandNameTextBox = (TextView) convertView.findViewById(R.id.band_name);
+        AlbumSimple album = track.album;
+        List<Image> imageList = album.images;
+        Image image = imageList.get(0);
+
+        List<ArtistSimple> artistSimpleList = track.artists;
+        ArtistSimple artist = artistSimpleList.get(0);
+        //artist.
+
+        // TODO: come back to this!
+
+        String songName = track.name;
+        String imageUrl = image.url;
+        String bandAlbum = album.name;
+
+        /*TextView bandNameTextBox = (TextView) convertView.findViewById(R.id.band_name);
         ImageView bandImageView = (ImageView) convertView.findViewById(R.id.band_image);
 
         bandNameTextBox.setText(bandName);
-        if(!bandImageList.isEmpty()) {
-            String bandImageUrl = bandImageList.get(0).url;
-            Picasso.with(context)
-                    .load(bandImageUrl)
-                    .resize(75,75)
-                    .centerCrop()
-                    .into(bandImageView);
-        } else {
-            bandImageView.setImageResource(R.drawable.white_square);
-        }
+        Picasso.with(context)
+                .load(bandImageUrl)
+                .resize(75,75)
+                .centerCrop()
+                .into(bandImageView);*/
         return convertView;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String key = context.getString(R.string.intent_extra_key);
-        Intent topTenIntent = new Intent(context, TopTenActivity.class);
-        topTenIntent.putExtra(key, position);
-        context.startActivity(topTenIntent);
+        Log.d(TAG, "position: " + position);
     }
 }

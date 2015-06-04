@@ -3,28 +3,37 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_box_rounded">
 
     <ImageView
         android:layout_width="@dimen/album_art_size"
         android:layout_height="@dimen/album_art_size"
-        android:layout_margin="@dimen/default_item_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginLeft="@dimen/large_margin"
+        android:layout_marginStart="@dimen/large_margin"
         android:id="@+id/band_image"
-        android:src="@drawable/album_art" />
+        android:src="@drawable/white_square"
+        android:background="@color/spotify_dark_background"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="@dimen/default_item_margin"
-        android:gravity="center_vertical">
+        android:layout_margin="@dimen/small_margin"
+        android:gravity="center_vertical"
+        android:background="@color/spotify_dark_background">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/band_name"
-            android:id="@+id/band_name" />
+            android:id="@+id/band_name"
+            android:background="@color/spotify_dark_background"/>
 
     </LinearLayout>
 
