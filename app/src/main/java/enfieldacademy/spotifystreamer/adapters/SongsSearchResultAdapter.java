@@ -66,14 +66,15 @@ public class SongsSearchResultAdapter extends BaseAdapter implements AdapterView
         Image image = imageList.get(0);
 
         List<ArtistSimple> artistSimpleList = track.artists;
+        // TODO: add name to top of view?
         ArtistSimple artist = artistSimpleList.get(0);
-        //artist.
-
-        // TODO: come back to this!
 
         String songName = track.name;
+        Log.d(TAG, "songName = " + songName);
         String imageUrl = image.url;
-        String bandAlbum = album.name;
+        Log.d(TAG, "iamgeUrl = " + imageUrl);
+        String albumName = album.name;
+        Log.d(TAG, "albumName = " + albumName);
 
         /*TextView bandNameTextBox = (TextView) convertView.findViewById(R.id.band_name);
         ImageView bandImageView = (ImageView) convertView.findViewById(R.id.band_image);
