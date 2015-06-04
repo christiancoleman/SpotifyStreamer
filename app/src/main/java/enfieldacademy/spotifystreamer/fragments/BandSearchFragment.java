@@ -21,8 +21,6 @@ import kaaes.spotify.webapi.android.models.Pager;
 
 public class BandSearchFragment extends Fragment {
 
-    //private final String TAG = "BandSearchFragment";
-
     // to satisfy looking for bands with very short names like U2, but also trying to respect API limits
     private final int NUM_OF_CHARS_BEFORE_SEARCH = 1;
 

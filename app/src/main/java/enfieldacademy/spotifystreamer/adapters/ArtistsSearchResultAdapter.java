@@ -2,7 +2,6 @@ package enfieldacademy.spotifystreamer.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,6 @@ import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.Image;
 
 public class ArtistsSearchResultAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
-
-    private final String TAG = "ArtistSearchResultAdptr";
 
     private LayoutInflater mInflater;
     private Context context;
