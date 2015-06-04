@@ -15,7 +15,8 @@
         android:layout_marginRight="@dimen/large_margin"
         android:textSize="@dimen/search_bar_text_size"
         android:textColor="@color/spotify_font_color"
-        android:textColorHint="@color/spotify_font_color"/>
+        android:textColorHint="@color/spotify_font_color"
+        android:singleLine="true"/>
 
     <ListView
         android:layout_width="match_parent"
