@@ -72,19 +72,21 @@ public class SongsSearchResultAdapter extends BaseAdapter implements AdapterView
         String songName = track.name;
         Log.d(TAG, "songName = " + songName);
         String imageUrl = image.url;
-        Log.d(TAG, "iamgeUrl = " + imageUrl);
+        Log.d(TAG, "imageUrl = " + imageUrl);
         String albumName = album.name;
         Log.d(TAG, "albumName = " + albumName);
 
-        /*TextView bandNameTextBox = (TextView) convertView.findViewById(R.id.band_name);
+        TextView songNameTextBox = (TextView) convertView.findViewById(R.id.song_name);
+        TextView albumNameTextBox = (TextView) convertView.findViewById(R.id.album_name);
         ImageView bandImageView = (ImageView) convertView.findViewById(R.id.band_image);
 
-        bandNameTextBox.setText(bandName);
+        songNameTextBox.setText(songName);
+        albumNameTextBox.setText(albumName);
         Picasso.with(context)
-                .load(bandImageUrl)
+                .load(imageUrl)
                 .resize(75,75)
                 .centerCrop()
-                .into(bandImageView);*/
+                .into(bandImageView);
         return convertView;
     }
 
