@@ -4,8 +4,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string name="music_search_hint">Enter a band, singer, or song here!</string>
+    <string name="music_search_hint">Search&#8203;</string>
 
     <string name="band_name">Coldplay</string>
+    <string name="song_name">Us Against The World</string>
     <string name="album_name">Mylo Xyloto</string>
+    <string name="title_activity_jukebox">JukeboxActivity</string>
+    <string name="title_activity_top_ten">TopTenActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,24 +1,28 @@
 package enfieldacademy.spotifystreamer.activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
+
+import java.util.List;
 
 import enfieldacademy.spotifystreamer.R;
-import enfieldacademy.spotifystreamer.adapters.SearchResultAdapter;
+import kaaes.spotify.webapi.android.models.Artist;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
+
+    /*
+        @ code reviewer! Is this bad practice? I was having trouble figuring out how to pass
+        this list between the fragment and the adapter. I could have made the adapter nested
+        within the fragment, but I wanted to get feedback on this specifically.
+    */
+    public static List<Artist> artistList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ListView lv = (ListView) findViewById(R.id.searchListView);
-        SearchResultAdapter searchResultAdapter = new SearchResultAdapter(this);
-        lv.setAdapter(searchResultAdapter);
     }
 
     @Override

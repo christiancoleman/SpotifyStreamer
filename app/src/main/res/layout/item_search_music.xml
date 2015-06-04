@@ -3,20 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="@dimen/album_art_size"
         android:layout_height="@dimen/album_art_size"
         android:layout_margin="@dimen/default_item_margin"
-        android:id="@+id/imageView"
+        android:id="@+id/band_image"
         android:src="@drawable/album_art" />
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="@dimen/default_item_margin">
+        android:layout_margin="@dimen/default_item_margin"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,13 +25,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/band_name"
             android:id="@+id/band_name" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/album_name"
-            android:id="@+id/album_name"/>
 
     </LinearLayout>
 
