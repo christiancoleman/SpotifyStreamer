@@ -10,11 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import enfieldacademy.spotifystreamer.R;
-import enfieldacademy.spotifystreamer.activities.MainActivity;
+import enfieldacademy.spotifystreamer.SpotifyListHelper;
 import enfieldacademy.spotifystreamer.adapters.ArtistsSearchResultAdapter;
 
+import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.ArtistsPager;
 import kaaes.spotify.webapi.android.models.Pager;
@@ -24,7 +29,15 @@ public class BandSearchFragment extends Fragment {
     // to satisfy looking for bands with very short names like U2, but also trying to respect API limits
     private final int NUM_OF_CHARS_BEFORE_SEARCH = 1;
 
-    private ArtistsSearchResultAdapter artistsSearchResultAdapter;
+    private ArtistsSearchResultAdapter mArtistsSearchResultAdapter;
+    private SpotifyService mSpotify;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SpotifyApi api = new SpotifyApi();
+        mSpotify = api.getService();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,18 +63,19 @@ public class BandSearchFragment extends Fragment {
         });
 
         ListView lv = (ListView) rootView.findViewById(R.id.searchListView);
-        artistsSearchResultAdapter = new ArtistsSearchResultAdapter(getActivity());
-        lv.setAdapter(artistsSearchResultAdapter);
-        lv.setOnItemClickListener(artistsSearchResultAdapter);
+        mArtistsSearchResultAdapter = new ArtistsSearchResultAdapter(getActivity());
+        lv.setAdapter(mArtistsSearchResultAdapter);
+        lv.setOnItemClickListener(mArtistsSearchResultAdapter);
         return rootView;
     }
 
-    public class SearchArtistsTask extends AsyncTask<Void, Void, Void> {
+    public class SearchArtistsTask extends AsyncTask<Void, Void, List<Artist>> {
 
-        private String searchStr;
+        private String mSearchStr;
+        private Toast mToast;
 
         public SearchArtistsTask(String searchStr){
-            this.searchStr = searchStr;
+            this.mSearchStr = searchStr;
         }
 
         @Override
@@ -70,19 +84,36 @@ public class BandSearchFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected List<Artist> doInBackground(Void... params) {
             // added the asterisk so that partial names still find bands/singers
             // for ex: 'Subli' will find Sublime whereas without an asterisk it would not
-            ArtistsPager artistsPager = MainActivity.spotify.searchArtists(searchStr + "*");
-            Pager<Artist> pagerOfArtists = artistsPager.artists;
-            MainActivity.artistList = pagerOfArtists.items;
-            return null;
+            try {
+                ArtistsPager artistsPager = mSpotify.searchArtists(mSearchStr + "*");
+                Pager<Artist> pagerOfArtists = artistsPager.artists;
+                return pagerOfArtists.items;
+            } catch (Exception e){
+                return null;
+            }
         }
 
         @Override
-        protected void onPostExecute(Void v) {
-            super.onPostExecute(v);
-            artistsSearchResultAdapter.notifyDataSetChanged();
+        protected void onPostExecute(List<Artist> artists) {
+            super.onPostExecute(artists);
+
+            // cancel current toast because a new action is being determined
+            // it could succeed or it could fail
+            if(mToast != null) mToast.cancel();
+
+            if(artists == null) {
+                mToast = Toast.makeText(getActivity(), "An unexpected error occurred! :(", Toast.LENGTH_SHORT);
+                mToast.show();
+            } else if(artists.isEmpty()){
+                mToast = Toast.makeText(getActivity(), "No artists found! Please try again.", Toast.LENGTH_SHORT);
+                mToast.show();
+            }
+
+            SpotifyListHelper.setArtistList(artists);
+            mArtistsSearchResultAdapter.notifyDataSetChanged();
         }
     }
 }

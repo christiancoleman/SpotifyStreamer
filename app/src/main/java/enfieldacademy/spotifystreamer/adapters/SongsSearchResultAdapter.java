@@ -15,9 +15,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import enfieldacademy.spotifystreamer.R;
-import enfieldacademy.spotifystreamer.activities.MainActivity;
+import enfieldacademy.spotifystreamer.SpotifyListHelper;
 import kaaes.spotify.webapi.android.models.AlbumSimple;
-import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
 import kaaes.spotify.webapi.android.models.Image;
 import kaaes.spotify.webapi.android.models.Track;
@@ -27,17 +26,17 @@ public class SongsSearchResultAdapter extends BaseAdapter implements AdapterView
     private final String TAG = "SongsSearchResultAdptr";
 
     private LayoutInflater mInflater;
-    private Context context;
+    private Context mContext;
 
     public SongsSearchResultAdapter(Context context){
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.context = context;
+        this.mContext = context;
     }
 
     @Override
     public int getCount() {
-        if(MainActivity.topTenList != null) {
-            return MainActivity.topTenList.size();
+        if(SpotifyListHelper.getTopTenList() != null) {
+            return SpotifyListHelper.getTopTenList().size();
         } else {
             return 0;
         }
@@ -59,7 +58,7 @@ public class SongsSearchResultAdapter extends BaseAdapter implements AdapterView
             convertView = mInflater.inflate(R.layout.item_bands_top_ten, parent, false);
         }
 
-        Track track = MainActivity.topTenList.get(position);
+        Track track = SpotifyListHelper.getTopTenList().get(position);
 
         AlbumSimple album = track.album;
         List<Image> imageList = album.images;
@@ -82,7 +81,7 @@ public class SongsSearchResultAdapter extends BaseAdapter implements AdapterView
 
         songNameTextBox.setText(songName);
         albumNameTextBox.setText(albumName);
-        Picasso.with(context)
+        Picasso.with(mContext)
                 .load(imageUrl)
                 .resize(75,75)
                 .centerCrop()

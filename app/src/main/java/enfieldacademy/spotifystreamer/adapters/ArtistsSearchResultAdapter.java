@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import enfieldacademy.spotifystreamer.R;
-import enfieldacademy.spotifystreamer.activities.MainActivity;
+import enfieldacademy.spotifystreamer.SpotifyListHelper;
 import enfieldacademy.spotifystreamer.activities.TopTenActivity;
 import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.Image;
@@ -23,17 +23,17 @@ import kaaes.spotify.webapi.android.models.Image;
 public class ArtistsSearchResultAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
 
     private LayoutInflater mInflater;
-    private Context context;
+    private Context mContext;
 
     public ArtistsSearchResultAdapter(Context context){
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.context = context;
+        this.mContext = context;
     }
 
     @Override
     public int getCount() {
-        if(MainActivity.artistList != null) {
-            return MainActivity.artistList.size();
+        if(SpotifyListHelper.getArtistList() != null) {
+            return SpotifyListHelper.getArtistList().size();
         } else {
             return 0;
         }
@@ -55,7 +55,7 @@ public class ArtistsSearchResultAdapter extends BaseAdapter implements AdapterVi
             convertView = mInflater.inflate(R.layout.item_search_music, parent, false);
         }
 
-        Artist artist = MainActivity.artistList.get(position);
+        Artist artist = SpotifyListHelper.getArtistList().get(position);
         String bandName = artist.name;
         List<Image> bandImageList = artist.images;
 
@@ -65,7 +65,7 @@ public class ArtistsSearchResultAdapter extends BaseAdapter implements AdapterVi
         bandNameTextBox.setText(bandName);
         if(!bandImageList.isEmpty()) {
             String bandImageUrl = bandImageList.get(0).url;
-            Picasso.with(context)
+            Picasso.with(mContext)
                     .load(bandImageUrl)
                     .resize(75,75)
                     .centerCrop()
@@ -78,9 +78,9 @@ public class ArtistsSearchResultAdapter extends BaseAdapter implements AdapterVi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String key = context.getString(R.string.intent_extra_key);
-        Intent topTenIntent = new Intent(context, TopTenActivity.class);
+        String key = mContext.getString(R.string.intent_extra_key);
+        Intent topTenIntent = new Intent(mContext, TopTenActivity.class);
         topTenIntent.putExtra(key, position);
-        context.startActivity(topTenIntent);
+        mContext.startActivity(topTenIntent);
     }
 }
